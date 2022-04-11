@@ -8,6 +8,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\BookIssueController;
+use App\Http\Controllers\BookReturnController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,20 +36,20 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
     // Route::get('/admin/book-details', [DashboardController::class, 'BookDetails'])->name('admin.book-details');
     Route::resource('/admin/book-details', BookController::class);
+
     // Route::get('/admin/borrowers', [DashboardController::class, 'Borrowers'])->name('admin.borrowers');
     Route::resource('/admin/borrowers', BorrowerController::class);
+
     // Route::get('/admin/users', [DashboardController::class, 'Users'])->name('admin.users');
     Route::resource('/admin/users', UsersController::class);
     
-    // Route::get('/search', [BookIssueController::class, 'search'])->name('search');
-
     // Route::get('/admin/book-issue', [DashboardController::class, 'BookIssue'])->name('admin.book-issue');
     Route::get('/admin/book-issue', [BookIssueController::class, 'index'])->name('admin.book-issue');
-   
 
-    Route::get('/admin/book-return', [DashboardController::class, 'BookReturn'])->name('admin.book-return');
+    // Route::get('/admin/book-return', [DashboardController::class, 'BookReturn'])->name('admin.book-return');
+    Route::get('/admin/book-return', [BookReturnController::class, 'index'])->name('admin.book-return');
+
     Route::get('/admin/late-return', [DashboardController::class, 'LateReturn'])->name('admin.late-return');
-    
     Route::get('/admin/login-information', [DashboardController::class, 'LoginInformation'])->name('admin.login-information');
 });
 

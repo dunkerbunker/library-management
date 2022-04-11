@@ -25,7 +25,7 @@
                             </form>
                         </div>
                         <div class="autofill-group">
-                            <label class="p-2" for="name">Title</label>
+                            <label class="p-2" for="name">Book Title</label>
                             <input class="form-control" id="name" style="margin-right: 1rem;" type="text" name="search" value="{{ $book_title }}" readonly="readonly"> 
                             <br><br>
                             <label class="p-2" for="age">ISBN</label>

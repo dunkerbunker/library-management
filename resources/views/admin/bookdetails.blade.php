@@ -82,135 +82,135 @@
     </div>
 </div>
 
-    <style>
-        .btn_group{
-            padding-top: 45px;
-        }
-        .demo{ font-family: 'Noto Sans', sans-serif; }
-        .panel{
-            background: #4723D9;
-            padding: 0;
-            border-radius: 10px;
-            border: none;
-            box-shadow: 0 0 0 5px rgba(0,0,0,0.05),0 0 0 10px rgba(0,0,0,0.05);
-        }
-        .panel .panel-heading{
-            width: 100%;
-            padding: 20px 15px;
-            border-radius: 10px 10px 0 0;
-            margin: 0;
-        }
+<style>
+    .btn_group{
+        padding-top: 45px;
+    }
+    .demo{ font-family: 'Noto Sans', sans-serif; }
+    .panel{
+        background: #4723D9;
+        padding: 0;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 0 0 5px rgba(0,0,0,0.05),0 0 0 10px rgba(0,0,0,0.05);
+    }
+    .panel .panel-heading{
+        width: 100%;
+        padding: 20px 15px;
+        border-radius: 10px 10px 0 0;
+        margin: 0;
+    }
+    .panel .panel-heading .title{
+        color: #fff;
+        font-size: 28px;
+        padding-top: 10px;
+        font-weight: 500;
+        text-transform: capitalize;
+        line-height: 40px;
+        margin: 0;
+    }
+    .panel .panel-heading .btn{
+        color: rgba(255,255,255,1);
+        background: transparent;
+        font-size: 16px;
+        text-transform: capitalize;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        transition: all 0.3s ease 0s;
+    }
+    .panel .panel-heading .btn:hover{
+        color:#4723D9;
+        background: #fff;
+    }
+    .panel .panel-heading .form-control{
+        color: #fff;
+        background-color: transparent;
+        height: 40px;
+        border: 2px solid #fff;
+        border-radius: 20px;
+        display: inline-block;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .panel .panel-heading .form-control::placeholder{
+        color: rgba(255,255,255,0.5);
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .panel .panel-body{ padding: 0; }
+    .panel .panel-body .table thead tr th{
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: 12px;
+        border: none;
+    }
+    .panel .panel-body .table tbody tr td{
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 12px;
+        vertical-align: middle;
+        border: none;
+    }
+    .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
+    .panel .panel-body .table tbody .action-list{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    .panel .panel-body .table tbody .action-list li{
+        display: inline-block;
+        margin: 0 5px;
+    }
+    .panel .panel-body .table tbody .action-list li a{
+        color: #fff;
+        font-size: 24px;
+        z-index: 1;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .panel .panel-body .table tbody .action-list li .trash{
+        color: #fff;
+        font-size: 24px;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease 0s;
+    }
+    
+
+
+
+    
+    @media only screen and (max-width:767px){
         .panel .panel-heading .title{
-            color: #fff;
-            font-size: 28px;
-            padding-top: 10px;
-            font-weight: 500;
-            text-transform: capitalize;
-            line-height: 40px;
-            margin: 0;
+            text-align: center;
+            margin: 0 0 10px;
         }
-        .panel .panel-heading .btn{
-            color: rgba(255,255,255,1);
-            background: transparent;
-            font-size: 16px;
-            text-transform: capitalize;
-            border: 2px solid #fff;
-            border-radius: 50px;
-            transition: all 0.3s ease 0s;
-        }
-        .panel .panel-heading .btn:hover{
-            color:#4723D9;
-            background: #fff;
-        }
-        .panel .panel-heading .form-control{
-            color: #fff;
-            background-color: transparent;
-            height: 40px;
-            border: 2px solid #fff;
-            border-radius: 20px;
-            display: inline-block;
-            transition: all 0.3s ease 0s;
-        }
-       
-        .panel .panel-heading .form-control::placeholder{
-            color: rgba(255,255,255,0.5);
-            font-size: 15px;
-            font-weight: 500;
-        }
-        .panel .panel-body{ padding: 0; }
-        .panel .panel-body .table thead tr th{
-            color: #fff;
-            background-color: rgba(255, 255, 255, 0.2);
-            font-size: 16px;
-            font-weight: 500;
-            text-transform: uppercase;
-            padding: 12px;
-            border: none;
-        }
-        .panel .panel-body .table tbody tr td{
-            color: #fff;
-            font-size: 15px;
-            padding: 10px 12px;
-            vertical-align: middle;
-            border: none;
-        }
-        .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
-        .panel .panel-body .table tbody .action-list{
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-        .panel .panel-body .table tbody .action-list li{
-            display: inline-block;
-            margin: 0 5px;
-        }
-        .panel .panel-body .table tbody .action-list li a{
-            color: #fff;
-            font-size: 24px;
-            z-index: 1;
-            transition: all 0.3s ease 0s;
-        }
-        
-        .panel .panel-body .table tbody .action-list li .trash{
-            color: #fff;
-            font-size: 24px;
-            position: relative;
-            z-index: 1;
-            transition: all 0.3s ease 0s;
-        }
-        
+        .panel .panel-heading .btn_group{ text-align: center; }
+    }
+    .custom-shape-divider-bottom-1648996474 {
+        z-index: -3;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        transform: rotate(180deg);
+    }
 
+    .custom-shape-divider-bottom-1648996474 svg {
+        position: relative;
+        display: block;
+        width: calc(168% + 1.3px);
+        height: 346px;
+    }
 
-
-        
-        @media only screen and (max-width:767px){
-            .panel .panel-heading .title{
-                text-align: center;
-                margin: 0 0 10px;
-            }
-            .panel .panel-heading .btn_group{ text-align: center; }
-        }
-        .custom-shape-divider-bottom-1648996474 {
-            z-index: -3;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-            transform: rotate(180deg);
-        }
-
-        .custom-shape-divider-bottom-1648996474 svg {
-            position: relative;
-            display: block;
-            width: calc(168% + 1.3px);
-            height: 346px;
-        }
-
-        .custom-shape-divider-bottom-1648996474 .shape-fill {
-            fill: #4723D9;
-        }
-    </style>
+    .custom-shape-divider-bottom-1648996474 .shape-fill {
+        fill: #4723D9;
+    }
+</style>
 
 @endsection  
