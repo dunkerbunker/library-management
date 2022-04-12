@@ -16,9 +16,9 @@ class RegisterController extends Controller
         // validate the data
         $request->validate([
             'name' => 'required',
-            'staff_id' => 'required| unique:users |min:4',
+            'staff_id' => 'required|unique:users|min:4',
             'phone_no' => 'required',
-            'username' => 'required| unique:users',
+            'username' => 'required|unique:users',
             'password' => 'required|min:5|max:25',
         ]);
 
