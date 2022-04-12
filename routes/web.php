@@ -45,6 +45,7 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     
     // Route::get('/admin/book-issue', [DashboardController::class, 'BookIssue'])->name('admin.book-issue');
     Route::get('/admin/book-issue', [BookIssueController::class, 'index'])->name('admin.book-issue');
+    Route::post('/admin/book-issue', [BookIssueController::class, 'store'])->name('admin.book-issue.store');
 
     // Route::get('/admin/book-return', [DashboardController::class, 'BookReturn'])->name('admin.book-return');
     Route::get('/admin/book-return', [BookReturnController::class, 'index'])->name('admin.book-return');
