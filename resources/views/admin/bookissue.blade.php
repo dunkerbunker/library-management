@@ -24,15 +24,15 @@
                         @endif
                         <div class="autofill-group">
                             <label class="p-2" for="Issue_date">Issue Date</label>
-                            <input class="form-control" id="issue_date" style="margin-right: 1rem;" type="date" name="issue_date" value="{{ old('issue_date') }}" >
-                            
+                            <input form="all-submit" class="form-control" id="issue_date" style="margin-right: 1rem;" type="date" name="issue_date" value="{{ old('issue_date') }}" >
+                            <span class="text-danger">@error('issue_date'){{ $message }} @enderror</span>
                             <br><br>
                             <label class="p-2" for="due_date">Due Date</label>
-                            <input class="form-control" id="due_date" style="margin-right: 1rem;" type="date" name="due_date" value="{{ old('due_date') }}" >
-                            
+                            <input form="all-submit" class="form-control" id="due_date" style="margin-right: 1rem;" type="date" name="due_date" value="{{ old('due_date') }}" >
+                            <span class="text-danger">@error('due_date'){{ $message }} @enderror</span>
                         </div>
                         <div class="col col-sm-3 col-xs-12">
-                            <form method="POST" action="{{ route('admin.book-issue.store') }}">
+                            <form method="POST" id="all-submit" action="{{ route('admin.book-issue.store') }}">
                                 @csrf
                                 <button class="btn btn-outline-success my-2" type="submit">Submit</button>
                             </form>                            

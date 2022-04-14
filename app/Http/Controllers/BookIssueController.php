@@ -16,12 +16,20 @@ class BookIssueController extends Controller
 
     public function store(Request $request)
     {
-       
+        $request->validate([
+            'book_title' => 'required',
+            'ISBN' => 'required',
+            'borrower_name' => 'required',
+            'issue_date' => 'required',
+            'due_date' => 'required',
+            
+        ]);
 
         $borrow = new Borrow;
 
         $a = $request->input('borrower_name');
         $b = $request->input('ISBN');
+
         $borrow->borrower_id = Borrower::where('borrower_name', $a)->first()->id;
         $borrow->book_id = Book::where('ISBN', $b)->first()->id;
 
