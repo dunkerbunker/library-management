@@ -29,11 +29,11 @@
                         <div class="autofill-group">
                             <label class="p-2" for="name">Book Title</label>
                             <input class="form-control" id="book_title" style="margin-right: 1rem;" type="text" name="book_title" value="{{ $book_title }}" readonly="readonly">
-                            <span class="text-danger">@error('book_title'){{ $message }} @enderror</span> 
+                            
                             <br><br>
                             <label class="p-2" for="age">ISBN</label>
                             <input class="form-control" id="ISBN" style="margin-right: 1rem;" type="text" name="ISBN" value="{{ $ISBN }}" readonly="readonly"> 
-                            <span class="text-danger">@error('ISBN'){{ $message }} @enderror</span>
+                            
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <div class="autofill-group">
                             <label class="p-2" for="name">Borrower's Name</label>
                             <input class="form-control" id="borrower_name" style="margin-right: 1rem;" type="text" name="borrower_name" value="{{ $borrower_name }}" readonly="readonly">
-                            <span class="text-danger">@error('borrower_name'){{ $message }} @enderror</span>
+                            
                         </div>
                     </div>
                 </div>
