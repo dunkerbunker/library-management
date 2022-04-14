@@ -9,5 +9,8 @@ class Borrower extends Model
 {
     use HasFactory;
     protected $table = 'borrowers';
+    protected $primaryKey = 'id';
     protected $fillable = ['borrower_name', 'IC', 'phone_no', 'address'];
+
+    
 }

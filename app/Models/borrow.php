@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class borrow extends Model
 {
     use HasFactory;
+
+    protected $table = 'borrow';
+    protected $primaryKey = 'id';
+
+    
 }
