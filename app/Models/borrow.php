@@ -9,7 +9,7 @@ class borrow extends Model
 {
     use HasFactory;
 
-    protected $table = 'borrow';
+    protected $table = 'borrows';
     protected $primaryKey = 'id';
 
     

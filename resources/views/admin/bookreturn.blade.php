@@ -48,6 +48,11 @@
                             <h4 class="title p-0 mb-3">Find <span>Book to Return</span></h4>
                         </div>
                         <div class="autofill-group">
+                            @if (isset($books_borrowed))
+                                @foreach($books_borrowed as $books)
+                                <p>{{$books->book_title}}</p>
+                                @endforeach
+                            @endif
                             
                         </div>
                     </div>
