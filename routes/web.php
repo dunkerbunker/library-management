@@ -9,6 +9,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\BookIssueController;
 use App\Http\Controllers\BookReturnController;
+use App\Http\Controllers\LateReturnController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,7 +52,9 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/admin/book-return', [BookReturnController::class, 'index'])->name('admin.book-return');
     Route::post('/admin/book-return', [BookReturnController::class, 'store'])->name('admin.book-return.store');
 
-    Route::get('/admin/late-return', [DashboardController::class, 'LateReturn'])->name('admin.late-return');
+    // Route::get('/admin/late-return', [DashboardController::class, 'LateReturn'])->name('admin.late-return');
+    Route::get('/admin/late-return', [LateReturnController::class, 'index'])->name('admin.late-return');
+
     
     Route::get('/admin/login-information', [DashboardController::class, 'LoginInformation'])->name('admin.login-information');
 });
