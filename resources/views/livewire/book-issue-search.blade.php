@@ -1,9 +1,11 @@
 <div>
+<div class="col-md-offset-1 col-md-12">
 @if (session('success'))
     <div class="alert alert-success" role="alert">
         {{ session('success') }}
     </div>
 @endif
+</div>
 <div class="container p-3">
     <div class="row">
         <div class="col-md-offset-1 col-md-12">
@@ -13,11 +15,6 @@
                         <div class="col col-sm-3 col-xs-12">
                             <h4 class="title p-0 mb-3">Find <span>Book</span></h4>
                         </div>
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         <div class="col-sm-9 col-xs-12">
                             <form class="" wire:submit.prevent="booksearch" method="POST">
                                 <div class="btn_group d-flex flew-row align-items-center justify-content-start">
@@ -55,12 +52,6 @@
                                 <a href="" class="btn btn-outline-success my-2">Add Borrower</a>
                             @endif
                         </div>
-                        
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         <div class="col-sm-9 col-xs-12">
                             <form class="" wire:submit.prevent="borrowersearch" method="POST">
                                 <div class="btn_group d-flex flew-row align-items-center justify-content-start">

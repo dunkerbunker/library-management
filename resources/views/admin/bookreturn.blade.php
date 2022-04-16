@@ -5,17 +5,17 @@
 <div class="container p-3">
     <div class="row">
         <div class="col-md-offset-1 col-md-12">
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
             <div class="panel">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-sm-3 col-xs-12">
                             <h4 class="title p-0 mb-3">Find <span>Borrower</span></h4>
                         </div>
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         <div class="col-sm-9 col-xs-12">
                             <form class="" type="get" action="">
                                 <div class="btn_group d-flex flew-row align-items-center justify-content-start">
@@ -41,27 +41,85 @@
 <div class="container p-3">
     <div class="row">
         <div class="col-md-offset-1 col-md-12">
+            @if (isset($books_borrowed))
             <div class="panel">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col col-sm-12 col-xs-12">
-                            <h4 class="title p-0 mb-3">Find <span>Book to Return</span></h4>
-                        </div>
-                        <div class="autofill-group">
-                            @if (isset($books_borrowed))
-                                @foreach($books_borrowed as $books)
-                                <p>{{$books->book_title}}</p>
-                                @endforeach
-                            @endif
-                            
+                        <div class="col col-sm-6 col-xs-12">
+                            <h4 class="title">Choose <span>Book to Return</span></h4>
                         </div>
                     </div>
+                </div>
+                <div class="panel-body table-responsive">
+                
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Select Book</th>
+                                <th>Book Title</th>
+                                <th>ISBN</th>
+                                <th>Year</th>
+                                <th>Author</th>
+                                <th>Publisher</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Late Return Status</th>
+                                <th>Late Fine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($books_borrowed as $books)
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input form="all-submit" class="form-check-input" type="checkbox" value="{{$books->id}}" id="books_to_return[]" name="books_to_return[]">
+                                    </div>
+                                </td>
+                                <td>{{$books->book_title}}</td>
+                                <td>{{$books->ISBN}}</td>
+                                <td>{{$books->year}}</td>
+                                <td>{{$books->author}}</td>
+                                <td>{{$books->publisher_name}}</td>
+                                <td>{{$books->issue_date}}</td>
+                                <td>{{$books->due_date}}</td>
+                                <!-- late return status -->
+                                @if($books->late_return_status == 0)
+                                    <td style="text-align:center;">No</td>
+                                @else
+                                    <td style="text-align:center;">Yes</td>
+                                @endif
+                                <!-- fines -->
+                                @if($books->late_return_status == 0)
+                                    <td style="text-align:center;">No</td>
+                                @else
+                                    <td style="text-align:center;"><a href="/admin/late-return" class="btn btn-danger">Pay Fines</a></td>
+                                @endif
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="col col-sm-3 col-xs-12">
+                        <form method="POST" id="all-submit" action="{{ route('admin.book-return.store') }}">
+                            @csrf
+                            <button class="btn btn-success m-2" type="submit">Return</button>
+                        </form>                            
+                    </div>
+                @else
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col col-sm-6 col-xs-12">
+                                <h4 class="title">No <span>Books to Return</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <style>
     .btn_group{
@@ -90,7 +148,7 @@
         line-height: 40px;
         margin: 0;
     }
-    .panel .panel-heading .btn{
+    .btn{
         color: rgba(255,255,255,1);
         background: transparent;
         font-size: 16px;
@@ -99,7 +157,7 @@
         border-radius: 50px;
         transition: all 0.3s ease 0s;
     }
-    .panel .panel-heading .btn:hover{
+    .btn:hover{
         color:#4723D9;
         background: #fff;
     }
@@ -135,30 +193,6 @@
         vertical-align: middle;
         border: none;
     }
-    .panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
-    .panel .panel-body .table tbody .action-list{
-        padding: 0;
-        margin: 0;
-        list-style: none;
-    }
-    .panel .panel-body .table tbody .action-list li{
-        display: inline-block;
-        margin: 0 5px;
-    }
-    .panel .panel-body .table tbody .action-list li a{
-        color: #fff;
-        font-size: 24px;
-        z-index: 1;
-        transition: all 0.3s ease 0s;
-    }
-    
-    .panel .panel-body .table tbody .action-list li .trash{
-        color: #fff;
-        font-size: 24px;
-        position: relative;
-        z-index: 1;
-        transition: all 0.3s ease 0s;
-    }
     .autofill-group{
         color: #fff;
     }
@@ -170,6 +204,7 @@
         }
         .panel .panel-heading .btn_group{ text-align: center; }
     }
+
 
 </style>
 @endsection  

@@ -17,11 +17,6 @@
                         <div class="col col-sm-3 col-xs-12">
                             <h4 class="title p-0 mb-3">Enter <span>Date</span></h4>
                         </div>
-                        @if (session('error'))
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-                        @endif
                         <div class="autofill-group">
                             <label class="p-2" for="Issue_date">Issue Date</label>
                             <input form="all-submit" class="form-control" id="issue_date" style="margin-right: 1rem;" type="date" name="issue_date" value="{{ old('issue_date') }}" >
