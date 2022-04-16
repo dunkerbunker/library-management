@@ -11,6 +11,6 @@ class borrow extends Model
 
     protected $table = 'borrows';
     protected $primaryKey = 'id';
-    protected $fillable = ['return_date'];
+    protected $fillable = ['return_date', 'late_return_status'];
     
 }

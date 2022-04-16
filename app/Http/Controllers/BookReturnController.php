@@ -21,21 +21,11 @@ class BookReturnController extends Controller
             if ($borrower != null){
                 $borrower_name = $borrower->borrower_name;
                 $IC = $borrower->IC;
-                $id = $borrower->id;
-
-                $borrow = Borrow::where('borrower_id', $id)->get();
-                $due_date = \Carbon\Carbon::parse($borrow->first()->due_date);
-                $today = \Carbon\Carbon::now();
-                $result = $due_date->diffInDays($today, false);
-                if ($result < 0) {
-                    $borrow->late_return_status = 1;
-                } else {
-                    $borrow->late_return_status = 0;
-                }
+                $borrower_id = $borrower->id;
         
                 $books_borrowed = Borrow::join('books', 'borrows.book_id', '=', 'books.id')
                                         ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
-                                        ->where('borrows.borrower_id', '=', $id)
+                                        ->where('borrows.borrower_id', '=', $borrower_id)
                                         ->where('borrows.return_date', '=', null)
                                         ->get(['books.ISBN', 'books.book_title', 'books.year','books.author', 'books.publisher_name',
                                             'borrows.issue_date', 'borrows.due_date', 'borrows.late_return_status', 'borrows.id']);
@@ -56,9 +46,14 @@ class BookReturnController extends Controller
         $books_to_return = $request->input('books_to_return');
         foreach ($books_to_return as $book_id){
             $borrow = Borrow::find($book_id);
-            $borrow->return_date = date('Y-m-d');
-            $borrow->save();
+            if($borrow->late_return_status == 0){
+                $borrow->return_date = date('Y-m-d');
+                $borrow->save();
+            }   
+            else{
+                return redirect()->back()->with('error', 'Book Chosen Has Fines Due');
+            }
         }
-        return redirect()->back()->with('success', 'Book Borrowed Successfully');
+        return redirect()->back()->with('success', 'Books Returned Successfully');
     }
 }

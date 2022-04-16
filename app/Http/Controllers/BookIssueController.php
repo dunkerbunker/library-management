@@ -36,6 +36,21 @@ class BookIssueController extends Controller
         $borrow->issue_date = $request->input('issue_date');
         $borrow->due_date = $request->input('due_date');
 
+        // late return set 
+        $due_date = \Carbon\Carbon::parse($request->input('due_date'));
+        $today = \Carbon\Carbon::now();
+        // getting difference between due date and today
+        $result = $due_date->diffInDays($today, false);
+        // late
+        if ($result > 0) {
+            $borrow->late_return_status = 1;
+        } 
+        // on time
+        else {
+            $borrow->late_return_status = 0;
+        }
+
+
         $borrow->save();
 
         return redirect()->back()->with('success', 'Book Borrowed Successfully');
