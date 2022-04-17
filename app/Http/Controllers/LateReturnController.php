@@ -8,6 +8,7 @@ use App\Models\Borrow;
 use App\Models\Borrower;
 use App\Models\LateReturn;
 use App\Models\User;
+use PDF;
 
 class LateReturnController extends Controller
 {
@@ -48,6 +49,7 @@ class LateReturnController extends Controller
         $a = $late_return->borrow_id;
         $borrow = Borrow::where('id', '=', $a)->first();
         $borrow->return_date = date('Y-m-d');
+        $borrow->save();
 
         if (LateReturn::where('id', '=', $id)->exists()){
             $late_book = LateReturn::join('borrows', 'late_returns.borrow_id', '=', 'borrows.id')
@@ -56,14 +58,26 @@ class LateReturnController extends Controller
                                         ->where('late_returns.id', '=', $id)
                                         ->get(['borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no', 'borrowers.address' ,'books.ISBN', 'books.book_title',
                                              'late_returns.late_return_fines', 'late_returns.id', 'late_returns.payment']);
-        $today = date('Y-m-d');
-        $time = date('H:i:s');
-        $due_date = \Carbon\Carbon::parse($late_return->due_date);
-        $today = \Carbon\Carbon::now();
-        $overdue = $due_date->diffInDays($today, false);
 
-        $admin =  ['LoggedUserInfo' => User::where('id', "=", session('LoggedUser'))->first()];
-        return view('admin.invoice', $admin , compact('late_book', 'today', 'time', 'overdue'));
+            $due_date = \Carbon\Carbon::parse($late_return->due_date);
+            $today = \Carbon\Carbon::now();
+            $overdue = $due_date->diffInDays($today, false);
+            $today = date('Y-m-d');
+            $time = date('H:i:s');
+            $admin = ['LoggedUserInfo' => User::where('id', "=", session('LoggedUser'))->first()];
+
+            $data = [
+                'late_book' => $late_book,
+                'overdue' => $overdue,
+                'time' => $time,
+                'today' => $today,
+            ];
+            
+            // below line maybe marked as an error, it is NOT an error. The code works fine.
+            $pdf = PDF::loadView('admin.invoice', $data, $admin);
+    
+            return $pdf->download('invoice.pdf');
+            // return view('admin.invoice', compact('late_book', 'today', 'time', 'overdue', 'admin'));
         }
     }
 }

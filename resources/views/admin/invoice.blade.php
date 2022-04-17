@@ -26,6 +26,7 @@
         .brand-section{
            background-color: #0d1033;
            padding: 10px 40px;
+           height: 140px;
         }
         .logo{
             width: 50%;
@@ -44,6 +45,7 @@
         }
         .company-details{
             float: right;
+            left: 40px;
             text-align: right;
         }
         .body-section{
@@ -102,7 +104,7 @@
                 <div class="col-6">
                     <h1 class="text-white">Maldives Public Library </h1>
                 </div>
-                <div class="col-6">
+                <div class="">
                     <div class="company-details">
                         <p class="text-white">Majeedhi Magu, Male, Maldives</p>
                         <p class="text-white">MPL@gov.com.mv</p>
@@ -113,14 +115,16 @@
         </div>
 
         <div class="body-section">
-            <div class="row">
-                <div class="col-6">
-                    <h2 class="heading">Late Return No.: {{$late_book->first()->id}}</h2>
+            <div class="">
+                <div class="">
+                    <h2 class="heading">Late Return No: {{$late_book->first()->id}}</h2>
                     <p class="sub-heading">Date: {{$today}} </p>
-                    <p class="sub-heading">Date: {{$time}} </p>
-                    <p class="sub-heading">Handled by: {{$LoggedUserInfo['name']}} </p>
+                    <p class="sub-heading">Time: {{$time}} </p>
+                    <p class="sub-heading">Handled by: {{ $LoggedUserInfo['name'] }} </p>
                 </div>
-                <div class="col-6">
+                <br>
+                <br>
+                <div class="">
                 <h2 class="heading">Borrower Info.</h2>
                     <p class="sub-heading">Full Name: {{$late_book->first()->borrower_name}} </p>
                     <p class="sub-heading">IC: {{$late_book->first()->IC}}</p>
