@@ -16,7 +16,7 @@ class LateReturnController extends Controller
         if ($search != ''){
             $late_books = Borrow::join('books', 'borrows.book_id', '=', 'books.id')
                                         ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
-                                        ->join('late_returns', 'borrows.borrower_id', '=', 'late_returns.borrower_id')
+                                        ->join('late_returns', 'borrows.id', '=', 'late_returns.borrow_id')
                                         ->where('borrows.late_return_status', '=', 1)
                                         ->where('borrows.return_date', '=', null)
                                         ->where(function ($query) use ($search) {

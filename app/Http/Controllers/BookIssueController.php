@@ -56,13 +56,6 @@ class BookIssueController extends Controller
         // late
         if ($result > 0) {
             $borrow->late_return_status = 1;
-            // fine
-            $fine = $result * 5;
-            $late_books = new LateReturn;
-            $late_books->borrower_id = $borrow->borrower_id;
-            $late_books->book_id = $borrow->book_id;
-            $late_books->late_return_fines = $fine;
-            $late_books->save();
         } 
         // on time
         else {
@@ -70,10 +63,17 @@ class BookIssueController extends Controller
         }
         $borrow->save();
 
-        
-        
-        
-        
+        if ($result > 0){
+            // fine
+            $fine = $result * 5;
+            $late_books = new LateReturn;
+            $late_books->borrower_id = $borrow->borrower_id;
+            $late_books->book_id = $borrow->book_id;
+            $late_books->borrow_id = $borrow->id;
+            $late_books->late_return_fines = $fine;
+            $late_books->save();
+        }
+
         return redirect()->back()->with('success', 'Book Borrowed Successfully');
     }
 }

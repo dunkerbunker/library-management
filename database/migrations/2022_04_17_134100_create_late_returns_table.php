@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('borrower_id');
             $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('borrow_id');
             $table->integer('late_return_fines');
             $table->integer('payment')->nullable();
             $table->date('date_of_payment')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
 
             $table->foreign('borrower_id')->references('id')->on('borrowers')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('borrow_id')->references('id')->on('borrows')->onDelete('cascade');
         });
     }
 
