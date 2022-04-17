@@ -5,6 +5,11 @@
         {{ session('success') }}
     </div>
 @endif
+@if (session('error'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
 </div>
 <div class="container p-3">
     <div class="row">

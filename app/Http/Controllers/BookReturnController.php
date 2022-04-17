@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Borrower;
 use App\Models\Borrow;
 use App\Models\Book;
+use App\Models\LateReturn;
 use Illuminate\Http\Request;
 
 class BookReturnController extends Controller
@@ -51,6 +52,7 @@ class BookReturnController extends Controller
                 $borrow->save();
             }   
             else{
+
                 return redirect()->back()->with('error', 'Book Chosen Has Fines Due');
             }
         }

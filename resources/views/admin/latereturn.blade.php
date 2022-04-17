@@ -64,7 +64,7 @@
                                 <td>{{$book->publisher_name}}</td>
                                 <td>{{$book->issue_date}}</td>
                                 <td>{{$book->due_date}}</td>
-                                <td style="text-align:center;"><a href="{{ 'generate-invoice' }}" class="btn btn-danger">Pay ${{$fine}}</a></td>
+                                <td style="text-align:center;"><a href="{{ 'generate-invoice' }}" class="btn btn-danger">Pay ${{$book->late_return_fines}}</a></td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Borrow;
 use App\Models\Book;
 use App\Models\Borrower;
+use App\Models\LateReturn;
 use Illuminate\Http\Request;
 
 class BookIssueController extends Controller
@@ -25,13 +26,24 @@ class BookIssueController extends Controller
             
         ]);
 
+        
+
         $borrow = new Borrow;
 
         $a = $request->input('borrower_name');
         $b = $request->input('ISBN');
 
-        $borrow->borrower_id = Borrower::where('borrower_name', $a)->first()->id;
-        $borrow->book_id = Book::where('ISBN', $b)->first()->id;
+        $borrower_id = Borrower::where('borrower_name', $a)->first()->id;
+        $book_id = Book::where('ISBN', $b)->first()->id;
+
+        if (Borrow::where('borrower_id', $borrower_id)->exists()) {
+            if (Borrow::where('book_id', $book_id)->exists()) {
+                return redirect()->back()->with('error', 'Borrower has already borrowed this book');
+            }
+         }
+         
+        $borrow->borrower_id = $borrower_id;
+        $borrow->book_id = $book_id;
 
         $borrow->issue_date = $request->input('issue_date');
         $borrow->due_date = $request->input('due_date');
@@ -44,15 +56,24 @@ class BookIssueController extends Controller
         // late
         if ($result > 0) {
             $borrow->late_return_status = 1;
+            // fine
+            $fine = $result * 5;
+            $late_books = new LateReturn;
+            $late_books->borrower_id = $borrow->borrower_id;
+            $late_books->book_id = $borrow->book_id;
+            $late_books->late_return_fines = $fine;
+            $late_books->save();
         } 
         // on time
         else {
             $borrow->late_return_status = 0;
         }
-
-
         $borrow->save();
 
+        
+        
+        
+        
         return redirect()->back()->with('success', 'Book Borrowed Successfully');
     }
 }
