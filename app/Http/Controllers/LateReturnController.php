@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Borrower;
 use App\Models\LateReturn;
+use App\Models\User;
 
 class LateReturnController extends Controller
 {
@@ -14,9 +15,9 @@ class LateReturnController extends Controller
     {
         $search = $request['search'] ?? '';
         if ($search != ''){
-            $late_books = Borrow::join('books', 'borrows.book_id', '=', 'books.id')
+            $late_books = LateReturn::join('borrows', 'late_returns.borrow_id', '=', 'borrows.id')
+                                        ->join('books', 'borrows.book_id', '=', 'books.id')
                                         ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
-                                        ->join('late_returns', 'borrows.id', '=', 'late_returns.borrow_id')
                                         ->where('borrows.late_return_status', '=', 1)
                                         ->where('borrows.return_date', '=', null)
                                         ->where(function ($query) use ($search) {
@@ -24,21 +25,46 @@ class LateReturnController extends Controller
                                                 ->orWhere('borrowers.IC', 'like', '%' . $search . '%');
                                         })
                                         ->get(['borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no' ,'books.ISBN', 'books.book_title', 'books.year','books.author', 'books.publisher_name',
-                                            'borrows.issue_date', 'borrows.due_date', 'late_returns.late_return_fines']);
+                                            'borrows.issue_date', 'borrows.due_date', 'late_returns.late_return_fines', 'late_returns.id']);
         }else{
-            $late_books = Borrow::join('books', 'borrows.book_id', '=', 'books.id')
-                                        ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
-                                        ->join('late_returns', 'borrows.borrower_id', '=', 'late_returns.borrower_id')
-                                        ->where('borrows.late_return_status', '=', 1)
-                                        ->where('borrows.return_date', '=', null)
-                                        ->get(['borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no' ,'books.ISBN', 'books.book_title', 'books.year','books.author', 'books.publisher_name',
-                                            'borrows.issue_date', 'borrows.due_date', 'late_returns.late_return_fines']);
+            $late_books = LateReturn::join('borrows', 'late_returns.borrow_id', '=', 'borrows.id')
+                                                    ->join('books', 'borrows.book_id', '=', 'books.id')
+                                                    ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
+                                                    ->where('borrows.late_return_status', '=', 1)
+                                                    ->where('borrows.return_date', '=', null)
+                                                    ->get(['borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no' ,'books.ISBN', 'books.book_title', 'books.year','books.author', 'books.publisher_name',
+                                                        'borrows.issue_date', 'borrows.due_date', 'late_returns.late_return_fines', 'late_returns.id']);
             
         }
         return view('admin.latereturn', compact('late_books', 'search'));
     }
 
-    public function invoice(){
-        return view('admin.invoice');
+    public function invoice($id){
+        $late_return = LateReturn::find($id);
+        $late_return->payment = $late_return ->late_return_fines;
+        $late_return->date_of_payment = date('Y-m-d');
+        $late_return->save();
+
+        $a = $late_return->borrow_id;
+        $borrow = Borrow::where('id', '=', $a)->first();
+        $borrow->return_date = date('Y-m-d');
+
+        if (LateReturn::where('id', '=', $id)->exists()){
+            $late_book = LateReturn::join('borrows', 'late_returns.borrow_id', '=', 'borrows.id')
+                                        ->join('books', 'borrows.book_id', '=', 'books.id')
+                                        ->join('borrowers', 'borrows.borrower_id', '=', 'borrowers.id')
+                                        ->where('late_returns.id', '=', $id)
+                                        ->get(['borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no', 'borrowers.address' ,'books.ISBN', 'books.book_title',
+                                             'late_returns.late_return_fines', 'late_returns.id', 'late_returns.payment']);
+        $today = date('Y-m-d');
+        $time = date('H:i:s');
+        $due_date = \Carbon\Carbon::parse($late_return->due_date);
+        $today = \Carbon\Carbon::now();
+        $overdue = $due_date->diffInDays($today, false);
+
+        $admin =  ['LoggedUserInfo' => User::where('id', "=", session('LoggedUser'))->first()];
+        return view('admin.invoice', $admin , compact('late_book', 'today', 'time', 'overdue'));
+        }
     }
 }
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fabcart</title>
+    <title>Invoice</title>
     <style>
         body{
             background-color: #F6F6F6; 
@@ -93,18 +93,20 @@
     </style>
 </head>
 <body>
-
+<!-- borrowers.borrower_name', 'borrowers.IC', 'borrowers.phone_no' ,'books.ISBN', 
+'books.book_title', 'books.year','books.author', 'books.publisher_name',
+ borrows.issue_date', 'borrows.due_date', 'late_returns.late_return_fines' -->
     <div class="container">
         <div class="brand-section">
             <div class="row">
                 <div class="col-6">
-                    <h1 class="text-white">FABCART</h1>
+                    <h1 class="text-white">Maldives Public Library </h1>
                 </div>
                 <div class="col-6">
                     <div class="company-details">
-                        <p class="text-white">assdad asd  asda asdad a sd</p>
-                        <p class="text-white">assdad asd asd</p>
-                        <p class="text-white">+91 888555XXXX</p>
+                        <p class="text-white">Majeedhi Magu, Male, Maldives</p>
+                        <p class="text-white">MPL@gov.com.mv</p>
+                        <p class="text-white">+960 3339756</p>
                     </div>
                 </div>
             </div>
@@ -113,61 +115,57 @@
         <div class="body-section">
             <div class="row">
                 <div class="col-6">
-                    <h2 class="heading">Invoice No.: 001</h2>
-                    <p class="sub-heading">Tracking No. fabcart2025 </p>
-                    <p class="sub-heading">Order Date: 20-20-2021 </p>
-                    <p class="sub-heading">Email Address: customer@gfmail.com </p>
+                    <h2 class="heading">Late Return No.: {{$late_book->first()->id}}</h2>
+                    <p class="sub-heading">Date: {{$today}} </p>
+                    <p class="sub-heading">Date: {{$time}} </p>
+                    <p class="sub-heading">Handled by: {{$LoggedUserInfo['name']}} </p>
                 </div>
                 <div class="col-6">
-                    <p class="sub-heading">Full Name:  </p>
-                    <p class="sub-heading">Address:  </p>
-                    <p class="sub-heading">Phone Number:  </p>
-                    <p class="sub-heading">City,State,Pincode:  </p>
+                <h2 class="heading">Borrower Info.</h2>
+                    <p class="sub-heading">Full Name: {{$late_book->first()->borrower_name}} </p>
+                    <p class="sub-heading">IC: {{$late_book->first()->IC}}</p>
+                    <p class="sub-heading">Phone Number: {{$late_book->first()->phone_no}}</p>
+                    <p class="sub-heading">Address: {{$late_book->first()->address}}</p>
                 </div>
             </div>
         </div>
 
         <div class="body-section">
-            <h3 class="heading">Ordered Items</h3>
+            <h3 class="heading">Borrowed Book Payment</h3>
             <br>
             <table class="table-bordered">
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th class="w-20">Price</th>
-                        <th class="w-20">Quantity</th>
-                        <th class="w-20">Grandtotal</th>
+                        <th>Book Name</th>
+                        <th class="w-20">ID</th>
+                        <th class="w-20">Overdue Days</th>
+                        <th class="w-20">Fine</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Product Name</td>
-                        <td>10</td>
-                        <td>1</td>
-                        <td>10</td>
+                        <td>{{$late_book->first()->book_title}}</td>
+                        <td>{{$late_book->first()->ISBN}}</td>
+                        <td>{{ $overdue }}</td>
+                        <td>MVR {{$late_book->first()->payment}}</td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-right">Sub Total</td>
-                        <td> 10.XX</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" class="text-right">Tax Total %1X</td>
-                        <td> 2</td>
+                        <td colspan="3" class="text-right">Tax Total %</td>
+                        <td>0%</td>
                     </tr>
                     <tr>
                         <td colspan="3" class="text-right">Grand Total</td>
-                        <td> 12.XX</td>
+                        <td>MVR {{$late_book->first()->payment}}</td>
                     </tr>
                 </tbody>
             </table>
             <br>
             <h3 class="heading">Payment Status: Paid</h3>
-            <h3 class="heading">Payment Mode: Cash on Delivery</h3>
+            <h4 class="heading">Each day past due date is 5 MVR/-</h4>
         </div>
 
         <div class="body-section">
-            <p>&copy; Copyright 2021 - Fabcart. All rights reserved. 
-                <a href="https://www.fundaofwebit.com/" class="float-right">www.fundaofwebit.com</a>
+            <p>&copy; Copyright 2021 - Maldives Public Library. All rights reserved. 
             </p>
         </div>      
     </div>      
