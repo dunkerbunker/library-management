@@ -54,8 +54,8 @@ Route::group(['middleware' => ['AuthCheck']], function () {
 
     // Route::get('/admin/late-return', [DashboardController::class, 'LateReturn'])->name('admin.late-return');
     Route::get('/admin/late-return', [LateReturnController::class, 'index'])->name('admin.late-return');
+    Route::get('generate-invoice', [LateReturnController::class, 'invoice'])->name('admin.late-return.invoice');
 
-    
     Route::get('/admin/login-information', [DashboardController::class, 'LoginInformation'])->name('admin.login-information');
 });
 

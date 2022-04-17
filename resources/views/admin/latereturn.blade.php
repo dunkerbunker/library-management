@@ -49,7 +49,7 @@
                                 <th>Publisher</th>
                                 <th>Issue date</th>
                                 <th>Due date</th>
-                                <th>Late return fines</th>
+                                <th>Pay fines</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +64,7 @@
                                 <td>{{$book->publisher_name}}</td>
                                 <td>{{$book->issue_date}}</td>
                                 <td>{{$book->due_date}}</td>
-                                <td>90</td>
+                                <td style="text-align:center;"><a href="{{ 'generate-invoice' }}" class="btn btn-danger">Pay ${{$fine}}</a></td>
                             </tr>
                             @endforeach
                         </tbody>
