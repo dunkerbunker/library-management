@@ -26,7 +26,7 @@
                             <input form="all-submit" class="form-control" id="due_date" style="margin-right: 1rem;" type="date" name="due_date" value="{{ old('due_date') }}" >
                             <span class="text-danger">@error('due_date'){{ $message }} @enderror</span>
                         </div>
-                        <div class="col col-sm-3 col-xs-12">
+                        <div class="col col-sm-6 col-xs-12 pt-4">
                             <form method="POST" id="all-submit" action="{{ route('admin.book-issue.store') }}">
                                 @csrf
                                 <button class="btn btn-outline-success my-2" type="submit">Submit</button>

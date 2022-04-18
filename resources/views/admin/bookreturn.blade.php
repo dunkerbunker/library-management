@@ -103,10 +103,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="col col-sm-3 col-xs-12">
+                    <div class="col-12">
                         <form method="POST" id="all-submit" action="{{ route('admin.book-return.store') }}">
                             @csrf
-                            <button class="btn btn-success m-2" type="submit">Return</button>
+                            <button class="btn btn-success m-0 position-relative" style="left: 600px; bottom: 10px" type="submit">Return</button>
                         </form>                            
                     </div>
                 @else
