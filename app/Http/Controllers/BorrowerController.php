@@ -21,16 +21,18 @@ class BorrowerController extends Controller
             for ($i=0; $i < count($borrowers); $i++) { 
                 $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
                             ->join('books', 'borrows.book_id', '=', 'books.id')
+                            ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
                             ->where('borrowers.id', '=', $borrowers[$i]->id)
-                            ->get(['books.book_title']);
+                            ->get(['books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.borrow_date', 'borrows.return_date', 'late_returns.late_return_fines']);
             }
         }else{
             $borrowers = Borrower::all();
             for ($i=0; $i < count($borrowers); $i++) { 
                 $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
                             ->join('books', 'borrows.book_id', '=', 'books.id')
+                            ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
                             ->where('borrowers.id', '=', $borrowers[$i]->id)
-                            ->get(['books.book_title']);
+                            ->get(['books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.issue_date', 'borrows.return_date', 'late_returns.late_return_fines']);
             }
         }
         return view('admin.borrowers', compact('borrowers', 'search', 'borrowed_books'));

@@ -67,18 +67,20 @@
                       </thead>
                       <tbody>
                         @foreach($borrowed_books as $books)
-                          <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>og og og</td>
-                            <td>{{ $books->book_title }}</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                            <td>og og og</td>
-                          </tr>
+                          @foreach ($books as $book)
+                            <tr>
+                              <th scope="row">{{ $loop->iteration }}</th>
+                              <td>{{ $book->ISBN }}</td>
+                              <td>{{ $book->year }}</td>
+                              <td>{{ $book->book_title }}</td>
+                              <td>{{ $book->author }}</td>
+                              <td>{{ $book->publisher_name }}</td>
+                              <td>{{ $book->issue_date }}</td>
+                              <td>{{ $book->return_date }}</td>
+                              <td>x</td>
+                              <td>MVR {{ $book->late_return_fines }}</td>
+                            </tr>
+                          @endforeach
                         @endforeach
                       </tbody>
                     </table>
