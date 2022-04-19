@@ -29,8 +29,8 @@
               <p class="p-2 m-0"><span style="font-weight: bold;">Address: </span>{{ $borrower->address }}</p>
             </div>
                       
-            <div class="action-list flex-row align-items-end">
-                <a href="{{ url('admin/borrowers/'.$borrower->id.'/edit') }}" data-tip="edit" class="btn mb-2" id="edit"><i class="fa fa-edit "></i></a>
+            <div class="action-list d-flex flex-row align-items-start">
+                <a href="{{ url('admin/borrowers/'.$borrower->id.'/edit') }}" data-tip="edit" class="btn me-2" id="edit"><i class="fa fa-edit "></i></a>
                 <form action="{{ url('admin/borrowers/'.$borrower->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -48,21 +48,38 @@
                 </button>
               </h2>
               <div id="flush-collapse{{$borrower->id}}" class="accordion-collapse collapse" style="border: none;" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
+                <div class="accordion-body p-0 pt-4" style="width: 1248px">
                   <div class="accordion-inner">
                     <table class="table table-striped">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Book Name</th>
+                          <th scope="col">ISBN</th>
+                          <th scope="col">Year</th>
+                          <th scope="col">Title</th>
                           <th scope="col">Author</th>
-                          <th scope="col">Borrow Date</th>
-                          <th scope="col">Return Date</th>
-                          <th scope="col">Status</th>
+                          <th scope="col">Publisher</th>
+                          <th scope="col">Date borrowed</th>
+                          <th scope="col">Date Returned</th>
+                          <th scope="col">Overdue days</th>
+                          <th scope="col">Fines</th>
                         </tr>
                       </thead>
                       <tbody>
-
+                        
+                        <tr>
+                          <th scope="row">{{ $loop->iteration }}</th>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                          <td>og ogo go</td>
+                        </tr>
+                        
                       </tbody>
                     </table>
                   </div>
