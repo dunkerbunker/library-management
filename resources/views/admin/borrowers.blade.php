@@ -44,7 +44,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$borrower->id}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                  books borrow
+                  Books Borrowed
                 </button>
               </h2>
               <div id="flush-collapse{{$borrower->id}}" class="accordion-collapse collapse" style="border: none;" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -66,20 +66,20 @@
                         </tr>
                       </thead>
                       <tbody>
-                        
-                        <tr>
-                          <th scope="row">{{ $loop->iteration }}</th>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                          <td>og ogo go</td>
-                        </tr>
-                        
+                        @foreach($borrowed_books as $books)
+                          <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>og og og</td>
+                            <td>{{ $books->book_title }}</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                            <td>og og og</td>
+                          </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

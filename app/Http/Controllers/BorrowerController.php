@@ -18,10 +18,22 @@ class BorrowerController extends Controller
         $search = $request['search'] ?? '';
         if ($search != ''){
             $borrowers = Borrower::where('borrower_name', 'like', '%'.$search.'%')->get();
+            for ($i=0; $i < count($borrowers); $i++) { 
+                $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
+                            ->join('books', 'borrows.book_id', '=', 'books.id')
+                            ->where('borrowers.id', '=', $borrowers[$i]->id)
+                            ->get(['books.book_title']);
+            }
         }else{
             $borrowers = Borrower::all();
+            for ($i=0; $i < count($borrowers); $i++) { 
+                $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
+                            ->join('books', 'borrows.book_id', '=', 'books.id')
+                            ->where('borrowers.id', '=', $borrowers[$i]->id)
+                            ->get(['books.book_title']);
+            }
         }
-        return view('admin.borrowers', compact('borrowers', 'search'));
+        return view('admin.borrowers', compact('borrowers', 'search', 'borrowed_books'));
     }
 
     /**
