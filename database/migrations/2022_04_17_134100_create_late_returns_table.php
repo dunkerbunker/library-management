@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('borrow_id');
             $table->integer('late_return_fines');
+            $table->integer('overdue_days')->nullable();
             $table->integer('payment')->nullable();
             $table->date('date_of_payment')->nullable();
             $table->timestamps();

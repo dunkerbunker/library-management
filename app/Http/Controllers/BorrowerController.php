@@ -18,22 +18,15 @@ class BorrowerController extends Controller
         $search = $request['search'] ?? '';
         if ($search != ''){
             $borrowers = Borrower::where('borrower_name', 'like', '%'.$search.'%')->get();
-            for ($i=0; $i < count($borrowers); $i++) { 
-                $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
-                            ->join('books', 'borrows.book_id', '=', 'books.id')
-                            ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
-                            ->where('borrowers.id', '=', $borrowers[$i]->id)
-                            ->get(['books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.borrow_date', 'borrows.return_date', 'late_returns.late_return_fines']);
-            }
         }else{
             $borrowers = Borrower::all();
-            for ($i=0; $i < count($borrowers); $i++) { 
-                $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
-                            ->join('books', 'borrows.book_id', '=', 'books.id')
-                            ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
-                            ->where('borrowers.id', '=', $borrowers[$i]->id)
-                            ->get(['books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.issue_date', 'borrows.return_date', 'late_returns.late_return_fines']);
-            }
+        }
+        for ($i=0; $i < count($borrowers); $i++) { 
+            $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
+                        ->join('books', 'borrows.book_id', '=', 'books.id')
+                        ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
+                        ->where('borrowers.id', '=', $borrowers[$i]->id)
+                        ->get(['borrowers.id','books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.issue_date', 'borrows.return_date', 'late_returns.late_return_fines', 'late_returns.overdue_days']);
         }
         return view('admin.borrowers', compact('borrowers', 'search', 'borrowed_books'));
     }

@@ -74,6 +74,7 @@ class BookIssueController extends Controller
             $late_books->book_id = $borrow->book_id;
             $late_books->borrow_id = $borrow->id;
             $late_books->late_return_fines = $fine;
+            $late_books->overdue_days = $result;
             $late_books->save();
         }
 

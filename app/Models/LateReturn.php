@@ -11,5 +11,6 @@ class LateReturn extends Model
 
     protected $table = 'late_returns';
     protected $primaryKey = 'id';
-    protected $fillable = ['late_return_fines', 'payment', 'date_of_payment'];
+    protected $fillable = ['late_return_fines', 'payment', 'date_of_payment', 'overdue_days'];
+    
 }
