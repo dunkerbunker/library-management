@@ -21,14 +21,18 @@ class BorrowerController extends Controller
         }else{
             $borrowers = Borrower::all();
         }
-        for ($i=0; $i < count($borrowers); $i++) { 
-            $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
-                        ->join('books', 'borrows.book_id', '=', 'books.id')
-                        ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
-                        ->where('borrowers.id', '=', $borrowers[$i]->id)
-                        ->get(['borrowers.id','books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.issue_date', 'borrows.return_date', 'late_returns.late_return_fines', 'late_returns.overdue_days']);
+        foreach ($borrowers as $borrower){
+            $borrower->load('borrows', 'borrows.book', 'borrows.lateReturn');
         }
-        return view('admin.borrowers', compact('borrowers', 'search', 'borrowed_books'));
+        // for ($i=0; $i < count($borrowers); $i++) { 
+        //     $borrowed_books[$i] = Borrower::join('borrows', 'borrows.borrower_id', '=', 'borrowers.id')
+        //                 ->join('late_returns', 'late_returns.borrow_id', '=', 'borrows.id')
+        //                 ->join('books', 'borrows.book_id', '=', 'books.id')
+        //                 ->where('borrowers.id', '=', $borrowers[$i]->id)
+        //                 ->get(['borrowers.id','books.book_title','books.year','books.author', 'books.publisher_name', 'books.ISBN', 'borrows.issue_date', 'borrows.return_date', 'late_returns.late_return_fines', 'late_returns.overdue_days']);
+        // }
+        
+        return view('admin.borrowers', compact('borrowers', 'search'));
     }
 
     /**

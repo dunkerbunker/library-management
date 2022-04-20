@@ -12,5 +12,8 @@ class Borrower extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['borrower_name', 'IC', 'phone_no', 'address'];
 
-    
+    public function borrows()
+     {
+         return $this->hasMany(Borrow::class);
+     }
 }

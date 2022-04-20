@@ -3,6 +3,11 @@
 @section('content')
 
 <div class="container panel-heading">
+@if (session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
     <div class="row">
         <div class="col col-sm-3 col-xs-12">
           <h1 class="title p-0 mb-3" style="color:#4723D9;" >Borrowers <span>List</span></h1>
@@ -17,6 +22,7 @@
               </div>
           </form>
         </div>
+
         <div class="panel-body table-responsive">
         @foreach($borrowers as $borrower)
         <div class="p-4">
@@ -66,28 +72,36 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($borrowed_books as $books)
-                          @foreach ($books as $book)
-                            @if ($book->id == $borrower->id)
-                              <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $book->ISBN }}</td>
-                                <td>{{ $book->year }}</td>
-                                <td>{{ $book->book_title }}</td>
-                                <td>{{ $book->author }}</td>
-                                <td>{{ $book->publisher_name }}</td>
-                                <td>{{ $book->issue_date }}</td>
-                                @if ($book->return_date == null)
-                                  <td>Not Returned</td>
-                                @else
-                                  <td>{{ $book->return_date }}</td>
-                                @endif
-                                <td>{{ $book->overdue_days }} days</td>
-                                <td>MVR {{ $book->late_return_fines }}</td>
-                              </tr>
-                            @endif
+                        
+                          @foreach ($borrower->borrows as $borrow)
+                            <tr>
+                              <th scope="row">{{ $loop->iteration }}</th>
+                              <td>{{ $borrow->book?->ISBN }}</td>
+                              <td>{{ $borrow->book?->year }}</td>
+                              <td>{{ $borrow->book?->book_title }}</td>
+                              <td>{{ $borrow->book?->author }}</td>
+                              <td>{{ $borrow->book?->publisher_name }}</td>
+                              <td>{{ $borrow->issue_date }}</td>
+
+                              @if ($borrow->return_date == null)
+                                <td>Not Returned</td>
+                              @else
+                                <td>{{ $borrow->return_date }}</td>
+                              @endif
+
+                              @if ($borrow->lateReturn?->overdue_days == null)
+                                <td style="text-align:center;">0</td>
+                              @else
+                                <td style="text-align:center;">{{ $borrow->lateReturn?->overdue_days }} days</td>
+                              @endif
+
+                              @if ($borrow->lateReturn?->late_return_fines == null)
+                                <td>No Fine</td>
+                              @else
+                                <td>{{ $borrow->lateReturn?->late_return_fines }} MVR</td>
+                              @endif
+                            </tr>
                           @endforeach
-                        @endforeach
                       </tbody>
                     </table>
                   </div>

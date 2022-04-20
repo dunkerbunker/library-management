@@ -13,4 +13,8 @@ class LateReturn extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['late_return_fines', 'payment', 'date_of_payment', 'overdue_days'];
     
+    public function borrow()
+    {
+        return $this->BelongsTo(Borrow::class);
+    }
 }

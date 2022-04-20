@@ -75,10 +75,8 @@
                         <tbody>
                             @foreach($books_borrowed as $books)
                             <tr>
-                                <td>
-                                    <div class="form-check">
-                                        <input form="all-submit" class="form-check-input" type="checkbox" value="{{$books->id}}" id="books_to_return[]" name="books_to_return[]">
-                                    </div>
+                                <td  style="text-align:center;">
+                                    <input form="all-submit" class="form-check-input" type="checkbox" value="{{$books->id}}" id="books_to_return[]" name="books_to_return[]">
                                 </td>
                                 <td>{{$books->book_title}}</td>
                                 <td>{{$books->ISBN}}</td>

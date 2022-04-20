@@ -12,5 +12,20 @@ class borrow extends Model
     protected $table = 'borrows';
     protected $primaryKey = 'id';
     protected $fillable = ['return_date', 'late_return_status'];
+
+    public function borrower()
+    {
+        return $this->BelongsTo(Borrower::class);
+    }
+
+    public function lateReturn()
+    {
+        return $this->hasOne(LateReturn::class);
+    }
+
+    public function book()
+    {
+        return $this->BelongsTo(Book::class);
+    }
     
 }

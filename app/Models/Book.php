@@ -12,5 +12,8 @@ class Book extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['ISBN', 'year', 'book_title', 'author', 'publisher_name', 'category'];
 
-    
+    public function borrows() 
+    {
+        return $this->hasMany(Borrow::class);
+    }
 }
