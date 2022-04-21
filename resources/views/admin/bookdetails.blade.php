@@ -1,5 +1,5 @@
 @extends('layout.layout')
-@section("title", "Book Deails")
+@section("title", "Book Details")
 @section('content')
 <br>
 <div class="custom-shape-divider-bottom-1648996474">
