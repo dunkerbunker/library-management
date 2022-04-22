@@ -16,7 +16,8 @@ class BookController extends Controller
     {
         $search = $request['search'] ?? '';
         if ($search != ''){
-            $books = Book::where('book_title', 'like', '%'.$search.'%')->orWhere('ISBN', 'like', '%'.$search.'%')->orWhere('author', 'like', '%'.$search.'%')->get();
+            $books = Book::where('book_title', 'like', '%'.$search.'%')->orWhere('ISBN', 'like', '%'.$search.'%')
+            ->orWhere('author', 'like', '%'.$search.'%')->get();
         }else{
             $books = Book::all();
         }

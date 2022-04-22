@@ -26,8 +26,6 @@ class BookIssueController extends Controller
             
         ]);
 
-        
-
         $borrow = new Borrow;
 
         $a = $request->input('borrower_name');
@@ -36,15 +34,6 @@ class BookIssueController extends Controller
         $borrower_id = Borrower::where('borrower_name', $a)->first()->id;
         $book_id = Book::where('ISBN', $b)->first()->id;
 
-        
-        // if (Borrow::where('borrower_id', $borrower_id)->where('book_id', $book_id)->exists()) {
-        //     if (!isset(Borrow::find($borrower_id)->return_date)) {
-        //         return redirect()->back()->with('error', 'Book is already issued to this borrower');
-        //     }
-        //     return redirect()->back()->with('error', 'Book already issued to this borrower. Not yet returned.');
-        // }
-         
-         
         $borrow->borrower_id = $borrower_id;
         $borrow->book_id = $book_id;
 
