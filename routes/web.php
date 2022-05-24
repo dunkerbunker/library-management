@@ -26,7 +26,6 @@ use App\Http\Controllers\LateReturnController;
 Route::post('/auth/save',[RegisterController::class, 'save'])->name('auth.save');
 Route::get('/auth/check', [LoginController::class, 'check'])->name('auth.check');
 Route::get('/auth/logout', [LoginController::class, 'logout'])->name('auth.logout');
-
 Route::get('/auth/register', [RegisterController::class, 'register'])->name('auth.register');
 
 
