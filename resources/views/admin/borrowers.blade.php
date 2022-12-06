@@ -52,7 +52,6 @@
                 </button>
               </h2>
               
-
               <div id="flush-collapse{{$borrower->id}}" class="accordion-collapse collapse" style="border: none;" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body p-0 pt-4" style="width: 1248px">
                   <div class="accordion-inner">
