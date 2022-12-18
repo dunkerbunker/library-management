@@ -43,7 +43,7 @@
                     <button type="submit" class="btn trash px-3" id="trash"><i class="fa fa-trash"></i></button>
                 </form>
             </div>
-          </div>
+          </div>\
 
           <div class="accordion" id="accordionFlushExample">
             <div class="accordion-item">
