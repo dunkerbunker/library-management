@@ -44,7 +44,6 @@
                 </form>
             </div>
           </div>
-          
 
           <div class="accordion" id="accordionFlushExample">
             <div class="accordion-item">
